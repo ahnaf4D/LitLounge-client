@@ -72,7 +72,7 @@ const Navbar = () => {
                             title="User"
                         />
                         {dropdownOpen && (
-                            <ul className="absolute right-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
+                            <ul className="absolute z-50 right-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
                                 <li className="p-3 hover:bg-purple-100 cursor-pointer">
                                     <NavLink to="/profile">Profile</NavLink>
                                 </li>
