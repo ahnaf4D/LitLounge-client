@@ -3,31 +3,53 @@ import { useState } from 'react';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import GoogleAuth from '../../components/GoogleAuth/GoogleAuth';
+import useAuth from '../../hooks/useAuth';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 const Register = () => {
+    const { createUser } = useAuth();
+    const axiosPublic = useAxiosPublic();
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors },
     } = useForm({ mode: 'onChange' });
-
     const navigate = useNavigate();
     const [showPass, setShowPass] = useState(false);
     const [showConfirmPass, setShowConfirmPass] = useState(false);
-
     const handleToggleIcon = () => {
         setShowPass(!showPass);
     };
     const handleToggleConfirmPassIcon = () => {
         setShowConfirmPass(!showConfirmPass);
     }
-
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        try {
+            const { fullName, email, role } = data;
+            const status = role === "customer" ? "approved" : "pending";
+            const userData = { fullName, email, role, status, wishlist: [], cart: [] };
+            await createUser(email, password);
+            const res = await axiosPublic.post('/users', userData);
+            if (res.data.insertedId) {
+                Swal.fire({
+                    title: "Good job!",
+                    text: "Account created successfully",
+                    icon: "success"
+                });
+                navigate("/login");
+            }
+        }
+        catch (error) {
+            Swal.fire({
+                text: error.message,
+                icon: "error"
+            });
+        }
     };
     const password = watch('password');
     return (
-        <div className="font-inter bg-gray-50 min-h-screen flex items-center justify-center px-4 my-4">
+        <div className="font-inter  min-h-screen flex items-center justify-center px-4 my-4">
             <div className="w-full max-w-md bg-white rounded-lg shadow-md">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-3xl font-bold text-center text-gray-800">

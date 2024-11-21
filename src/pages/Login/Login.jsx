@@ -22,7 +22,7 @@ const Login = () => {
     };
 
     return (
-        <div className="font-inter my-8 bg-gray-50 min-h-screen flex items-center justify-center px-4">
+        <div className="font-inter my-8  min-h-screen flex items-center justify-center px-4">
             <div className="w-full max-w-md bg-white rounded-lg shadow-md">
                 <div className="p-6 sm:p-8">
                     <h2 className="text-3xl font-bold text-center text-gray-800">
