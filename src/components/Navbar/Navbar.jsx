@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/logo.png";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
     const [nav, setNav] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
+    const { user } = useAuth();
     const handleNav = () => setNav(!nav);
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
@@ -24,7 +25,7 @@ const Navbar = () => {
             : "p-4 rounded-lg text-blue-900 hover:text-white hover:bg-gradient-to-r from-blue-500 to-purple-500 m-2 cursor-pointer duration-300";
 
     return (
-        <div className="flex justify-between items-center h-20 px-6 text-blue-900 bg-gradient-to-r from-indigo-50 via-purple-100 to-indigo-50 shadow-lg">
+        <div className="flex justify-between items-center w-full py-2 px-6 text-blue-900 bg-gradient-to-r from-indigo-50 via-purple-100 to-indigo-50 shadow-lg">
             {/* Logo */}
             <div className="flex items-center">
                 <img src={Logo} alt="Logo" className="w-12 h-12 mr-2" />
@@ -47,46 +48,55 @@ const Navbar = () => {
 
                 {/* Wishlist and Cart */}
                 <div className="flex items-center space-x-6">
-                    {/* Wishlist */}
-                    <div className="relative cursor-pointer">
-                        <AiOutlineHeart size={30} className="text-purple-600 hover:text-purple-500" />
-                        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                            3
-                        </span>
-                    </div>
+                    {user && <>
+                        {/* Wishlist */}
+                        <div className="relative cursor-pointer">
+                            <AiOutlineHeart size={30} className="text-purple-600 hover:text-purple-500" />
+                            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                3
+                            </span>
+                        </div>
 
-                    {/* Cart */}
-                    <div className="relative cursor-pointer">
-                        <AiOutlineShoppingCart size={30} className="text-purple-600 hover:text-purple-500" />
-                        <span className="absolute top-0 right-0 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                            5
-                        </span>
-                    </div>
+                        {/* Cart */}
+                        <div className="relative cursor-pointer">
+                            <AiOutlineShoppingCart size={30} className="text-purple-600 hover:text-purple-500" />
+                            <span className="absolute top-0 right-0 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                5
+                            </span>
+                        </div>
 
-                    {/* User Dropdown */}
-                    <div className="relative">
-                        <FaUserCircle
-                            size={30}
-                            className="text-purple-600 hover:text-purple-500 cursor-pointer"
-                            onClick={toggleDropdown}
-                            title="User"
-                        />
-                        {dropdownOpen && (
-                            <ul className="absolute z-50 right-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
-                                <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                    <NavLink to="/profile">Profile</NavLink>
-                                </li>
-                                <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                    <NavLink to="/orders">Orders</NavLink>
-                                </li>
-                                <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                    <button onClick={() => alert("Logged Out")}>
-                                        Logout
-                                    </button>
-                                </li>
-                            </ul>
-                        )}
-                    </div>
+                        {/* User Dropdown */}
+                        <div className="relative">
+                            <FaUserCircle
+                                size={30}
+                                className="text-purple-600 hover:text-purple-500 cursor-pointer"
+                                onClick={toggleDropdown}
+                                title="User"
+                            />
+                            {dropdownOpen && (
+                                <ul className="absolute z-50 right-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
+                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
+                                        <NavLink to="/profile">Profile</NavLink>
+                                    </li>
+                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
+                                        <NavLink to="/orders">Orders</NavLink>
+                                    </li>
+                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
+                                        <button onClick={() => alert("Logged Out")}>
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
+                    </>}
+                    {!user &&
+                        <Link to='/login'>
+                            <button className="relative h-12 overflow-hidden rounded bg-neutral-950 px-5 py-2.5 text-white transition-all duration-200 hover:bg-neutral-800 hover:ring-offset-2 active:ring-2 active:ring-neutral-800">
+                                Login
+                            </button>
+                        </Link>
+                    }
                 </div>
             </ul>
 
@@ -105,32 +115,33 @@ const Navbar = () => {
                     }`}
             >
                 {/* User Dropdown for Mobile */}
-                <div className="flex justify-center items-center p-6">
-                    <div className="relative">
-                        <FaUserCircle
-                            size={40}
-                            className="text-black  cursor-pointer"
-                            onClick={toggleDropdown}
-                            title="User"
-                        />
-                        {dropdownOpen && (
-                            <ul className="absolute left-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
-                                <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                    <NavLink to="/profile">Profile</NavLink>
-                                </li>
-                                <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                    <NavLink to="/orders">Orders</NavLink>
-                                </li>
-                                <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                    <button onClick={() => alert("Logged Out")}>
-                                        Logout
-                                    </button>
-                                </li>
-                            </ul>
-                        )}
+                {user && <>
+                    <div className="flex justify-center items-center p-6">
+                        <div className="relative">
+                            <FaUserCircle
+                                size={40}
+                                className="text-black  cursor-pointer"
+                                onClick={toggleDropdown}
+                                title="User"
+                            />
+                            {dropdownOpen && (
+                                <ul className="absolute left-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
+                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
+                                        <NavLink to="/profile">Profile</NavLink>
+                                    </li>
+                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
+                                        <NavLink to="/orders">Orders</NavLink>
+                                    </li>
+                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
+                                        <button onClick={() => alert("Logged Out")}>
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            )}
+                        </div>
                     </div>
-                </div>
-
+                </>}
                 {/* Mobile Navigation Items */}
                 <div className="space-y-2 p-6">
                     {navItems.map((item) => (
@@ -146,18 +157,27 @@ const Navbar = () => {
                         </NavLink>
                     ))}
                 </div>
-
-                {/* Mobile Wishlist and Cart */}
-                <div className="space-y-4 p-6">
-                    <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
-                        <AiOutlineHeart size={24} className="text-white" />
-                        <span>Wishlist (3)</span>
+                {/* Mobile device wishlist , cart */}
+                {user && <>
+                    {/* Mobile Wishlist and Cart */}
+                    <div className="space-y-4 p-6">
+                        <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
+                            <AiOutlineHeart size={24} className="text-white" />
+                            <span>Wishlist (3)</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
+                            <AiOutlineShoppingCart size={24} className="text-white" />
+                            <span>Cart (5)</span>
+                        </div>
                     </div>
-                    <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
-                        <AiOutlineShoppingCart size={24} className="text-white" />
-                        <span>Cart (5)</span>
-                    </div>
-                </div>
+                </>}
+                {!user && <div className="mx-auto flex justify-center">
+                    <Link to='/login'>
+                        <button className="relative h-12 overflow-hidden rounded bg-neutral-950 px-5 py-2.5 text-white transition-all duration-200 hover:bg-neutral-800 hover:ring-offset-2 active:ring-2 active:ring-neutral-800">
+                            Login
+                        </button>
+                    </Link>
+                </div>}
             </ul>
         </div>
     );
