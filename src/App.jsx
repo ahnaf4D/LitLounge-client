@@ -1,10 +1,5 @@
-function App() {
-
+export default function App() {
   return (
-    <>
-      <h1>Vite + React</h1>
-    </>
+    <h1 className="font-inter text-2xl">Hello Lit Lounge</h1>
   )
 }
-
-export default App
