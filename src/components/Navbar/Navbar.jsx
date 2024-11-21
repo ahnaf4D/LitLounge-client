@@ -101,7 +101,7 @@ const Navbar = () => {
 
             {/* Mobile Navigation Menu */}
             <ul
-                className={`fixed left-0 top-0 w-[75%] h-full bg-gradient-to-b bg-blue-300 text-white shadow-lg ease-in-out duration-500 md:hidden ${nav ? "translate-x-0" : "-translate-x-full"
+                className={`fixed z-50 left-0 top-0 w-[75%] h-full bg-gradient-to-b bg-blue-300 text-white shadow-lg ease-in-out duration-500 md:hidden ${nav ? "translate-x-0" : "-translate-x-full"
                     }`}
             >
                 {/* User Dropdown for Mobile */}
