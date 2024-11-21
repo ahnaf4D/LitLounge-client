@@ -28,7 +28,13 @@ const Register = () => {
         try {
             const { fullName, email, role } = data;
             const status = role === "customer" ? "approved" : "pending";
-            const userData = { fullName, email, role, status, wishlist: [], cart: [] };
+            const userData = {
+                fullName,
+                email,
+                role,
+                status,
+                ...(role === "customer" && { wishlist: [], cart: [] })  // Spread operator to conditionally add wishlist and cart
+            };
             await createUser(email, password);
             const res = await axiosPublic.post('/users', userData);
             if (res.data.insertedId) {
@@ -37,7 +43,7 @@ const Register = () => {
                     text: "Account created successfully",
                     icon: "success"
                 });
-                navigate("/login");
+                navigate("/");
             }
         }
         catch (error) {

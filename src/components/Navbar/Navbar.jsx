@@ -50,12 +50,14 @@ const Navbar = () => {
     return (
         <div className="flex justify-between items-center w-full py-2 px-6 text-blue-900 bg-gradient-to-r from-indigo-50 via-purple-100 to-indigo-50 shadow-lg">
             {/* Logo */}
-            <div className="flex items-center">
-                <img src={Logo} alt="Logo" className="w-12 h-12 mr-2" />
-                <h1 className="text-4xl font-bold text-indigo-700 tracking-wide">
-                    Lit<i className="text-purple-500">Lounge</i>
-                </h1>
-            </div>
+            <Link to='/'>
+                <div className="flex items-center">
+                    <img src={Logo} alt="Logo" className="w-12 h-12 mr-2" />
+                    <h1 className="text-4xl font-bold text-indigo-700 tracking-wide">
+                        Lit<i className="text-purple-500">Lounge</i>
+                    </h1>
+                </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <ul className="hidden md:flex items-center">
@@ -104,7 +106,7 @@ const Navbar = () => {
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
                                         <NavLink to="/orders">Orders</NavLink>
                                     </li>
-                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
+                                    <li className="p-3 cursor-pointer">
                                         <button onClick={handleLogout} className="btn btn-primary">
                                             Logout
                                         </button>

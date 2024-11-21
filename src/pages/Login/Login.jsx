@@ -24,12 +24,12 @@ const Login = () => {
         const { email, password } = data;
         try {
             await loginUser(email, password);
+            navigate('/');
             Swal.fire({
                 title: "Good job!",
                 text: "Login Successfully!",
                 icon: "success"
             });
-            navigate('/');
         }
         catch (error) {
             Swal.fire({
