@@ -1,15 +1,38 @@
 import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import useAuth from "../../hooks/useAuth";
+import useUserData from "../../hooks/useUserData";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [nav, setNav] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const { user } = useAuth();
+    const { user, logOutUser } = useAuth();
+    const userData = useUserData();
     const handleNav = () => setNav(!nav);
+    const handleLogout = async () => {
+        try {
+            console.log("Logout handle clicked!!!");
+            await logOutUser();  // Logs the user out
+            Swal.fire({
+                title: "Good job!",
+                text: "Logout Successfully!",
+                icon: "success"
+            });
+            navigate('/');  // Redirect to home
+        }
+        catch (error) {
+            Swal.fire({
+                text: error.message,
+                icon: "error"
+            });
+        }
+    };
+
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
     const navItems = [
@@ -53,7 +76,7 @@ const Navbar = () => {
                         <div className="relative cursor-pointer">
                             <AiOutlineHeart size={30} className="text-purple-600 hover:text-purple-500" />
                             <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                3
+                                {userData?.wishlist?.length || 0}
                             </span>
                         </div>
 
@@ -61,7 +84,7 @@ const Navbar = () => {
                         <div className="relative cursor-pointer">
                             <AiOutlineShoppingCart size={30} className="text-purple-600 hover:text-purple-500" />
                             <span className="absolute top-0 right-0 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                5
+                                {userData?.cart?.length || 0}
                             </span>
                         </div>
 
@@ -82,7 +105,7 @@ const Navbar = () => {
                                         <NavLink to="/orders">Orders</NavLink>
                                     </li>
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <button onClick={() => alert("Logged Out")}>
+                                        <button onClick={handleLogout} className="btn btn-primary">
                                             Logout
                                         </button>
                                     </li>
@@ -133,7 +156,7 @@ const Navbar = () => {
                                         <NavLink to="/orders">Orders</NavLink>
                                     </li>
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <button onClick={() => alert("Logged Out")}>
+                                        <button onClick={handleLogout}>
                                             Logout
                                         </button>
                                     </li>
@@ -163,17 +186,17 @@ const Navbar = () => {
                     <div className="space-y-4 p-6">
                         <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
                             <AiOutlineHeart size={24} className="text-white" />
-                            <span>Wishlist (3)</span>
+                            <span>Wishlist ({userData?.wishlist?.length || 0})</span>
                         </div>
                         <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
                             <AiOutlineShoppingCart size={24} className="text-white" />
-                            <span>Cart (5)</span>
+                            <span>Cart ({userData?.cart?.length || 0})</span>
                         </div>
                     </div>
                 </>}
                 {!user && <div className="mx-auto flex justify-center">
                     <Link to='/login'>
-                        <button className="relative h-12 overflow-hidden rounded bg-neutral-950 px-5 py-2.5 text-white transition-all duration-200 hover:bg-neutral-800 hover:ring-offset-2 active:ring-2 active:ring-neutral-800">
+                        <button className="relative h-12 overflow-hidden rounded bg-neutral-950 px-5 py-2.5 text-white transition-all duration-200 hover:bg-neutral-800 hover:ring-offset-2 active:ring-2 active:ring-neutral-800" onClick={handleLogout}>
                             Login
                         </button>
                     </Link>

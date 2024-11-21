@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
 import GoogleAuth from '../../components/GoogleAuth/GoogleAuth';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+    const { loginUser } = useAuth();
     const {
         register,
         handleSubmit,
@@ -17,8 +20,23 @@ const Login = () => {
         setShowPass(!showPass);
     };
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        const { email, password } = data;
+        try {
+            await loginUser(email, password);
+            Swal.fire({
+                title: "Good job!",
+                text: "Login Successfully!",
+                icon: "success"
+            });
+            navigate('/');
+        }
+        catch (error) {
+            Swal.fire({
+                text: error.message,
+                icon: "error"
+            });
+        }
     };
 
     return (
