@@ -101,10 +101,7 @@ const Navbar = () => {
                             {dropdownOpen && (
                                 <ul className="absolute z-50 right-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <NavLink to="/profile">Profile</NavLink>
-                                    </li>
-                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <NavLink to="/orders">Orders</NavLink>
+                                        <NavLink to="/dashboard">Dashboard</NavLink>
                                     </li>
                                     <li className="p-3 cursor-pointer">
                                         <button onClick={handleLogout} className="btn btn-primary">
@@ -152,13 +149,10 @@ const Navbar = () => {
                             {dropdownOpen && (
                                 <ul className="absolute left-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <NavLink to="/profile">Profile</NavLink>
+                                        <NavLink to="/dashboard">Profile</NavLink>
                                     </li>
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <NavLink to="/orders">Orders</NavLink>
-                                    </li>
-                                    <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <button onClick={handleLogout}>
+                                        <button onClick={handleLogout} className="btn btn-primary">
                                             Logout
                                         </button>
                                     </li>
