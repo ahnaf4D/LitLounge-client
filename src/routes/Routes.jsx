@@ -13,6 +13,7 @@ import SellerRoutes from "./SellerRoutes";
 import ManageProducts from "../pages/Dashboard/Seller/ManageProducts";
 import ProductDetails from "../components/Home/ProductDetails";
 import UpdateExistingProduct from "../pages/Dashboard/Seller/UpdateExistingProduct";
+import Products from "../pages/Products/Products";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -38,6 +39,11 @@ const router = createBrowserRouter([
                 path: '/contact-us',
                 element: <Contact></Contact>
             },
+            {
+                path: '/products',
+                element: <Products></Products>
+            },
+
             {
                 path: '/product/:id',
                 element: <PrivateRoutes><ProductDetails></ProductDetails></PrivateRoutes>,

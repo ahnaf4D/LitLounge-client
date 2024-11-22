@@ -1,26 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "./useAxiosPublic";
 
-const useProducts = () => {
+const useProducts = ({ search, page, sort, brand, category }) => {
     const axiosPublic = useAxiosPublic();
     const { data, isLoading, isError, error, refetch } = useQuery({
-        queryKey: ['products'],
+        queryKey: ['products', 'productBrand', 'productCategory', 'totalProducts', { search, page, sort, brand, category }],
         queryFn: async () => {
-            const response = await axiosPublic.get(`/products`);
-            return response.data; // This directly contains the array of products
+            const response = await axiosPublic.get(`/products`, {
+                params: { search, page, sort, brand, category, limit: 6 }
+            });
+            return response.data || {}; // Ensure it always returns an object
         },
         keepPreviousData: true,
         staleTime: 1000 * 60 * 5, // Cache for 5 minutes
     });
-
-    // Assuming response.data is directly an array of products
-    const products = data || []; // Ensure it's an array, fallback to an empty array if not defined
-
     return {
-        products,
-        loading: isLoading,
-        error: isError ? error : null,
-        refetch, // For manual refetching
+        data,
+        refetch,
+        isLoading,
+        isError,
     };
 };
 
