@@ -3,7 +3,7 @@ import useAxiosPublic from "./useAxiosPublic";
 
 const useProducts = ({ search, page, sort, brand, category }) => {
     const axiosPublic = useAxiosPublic();
-    const { data, isLoading, isError, error, refetch } = useQuery({
+    const { data, isLoading, isError, refetch } = useQuery({
         queryKey: ['products', 'productBrand', 'productCategory', 'totalProducts', { search, page, sort, brand, category }],
         queryFn: async () => {
             const response = await axiosPublic.get(`/products`, {

@@ -1,18 +1,36 @@
-import { Tooltip } from 'react-tooltip'
-const FilterBar = ({ topic, alt }) => {
+import { FaFilter } from "react-icons/fa";
+import { GrPowerReset } from "react-icons/gr";
 
+const FilterBar = ({ setBrand, setCategory, handleReset, uniqueCategory, uniqueBrand }) => {
     return (
-        <div>
-
-            <select name="" data-tooltip-id="my-tooltip"
-                data-tooltip-content={`Sort by ${alt}`}
-                data-tooltip-place="top" id="" className="border-2 p-2 border-black rounded-lg cursor-pointer tooltip" data-tip="hello">
-                <option value="" disabled selected>Select {alt}</option>
-                {topic.map((top, index) => <option value={top} key={index} >{top}</option>)}
-            </select>
-            <Tooltip id="my-tooltip" />
-
+        <div className="bg-gray-200 h-full min-h-screen p-4 rounded-t-md">
+            <div className="flex items-center gap-2">
+                <FaFilter size={24} />
+                <h2 className="text-xl font-semibold">Filters</h2>
+            </div>
+            <div className="flex flex-col gap-2 items-center my-4">
+                <div>
+                    <select onChange={(e) => setBrand(e.target.value)} className="select select-bordered w-full select-lg max-w-xs">
+                        <option value="">Brands</option>
+                        {uniqueBrand.map((val) => (
+                            <option key={val} value={val}>{val}</option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <select className="select select-bordered w-full select-lg max-w-xs" onChange={(e) => setCategory(e.target.value)}>
+                        <option value="">Categories</option>
+                        {uniqueCategory.map((val, index) => (
+                            <option key={index} value={val}>{val}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+            <div className="flex justify-center items-center">
+                <button className="btn btn-error text-xl " onClick={handleReset}><GrPowerReset />Reset</button>
+            </div>
         </div>
     );
 };
+
 export default FilterBar;
