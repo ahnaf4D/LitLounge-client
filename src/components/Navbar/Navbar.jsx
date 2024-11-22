@@ -73,7 +73,7 @@ const Navbar = () => {
 
                 {/* Wishlist and Cart */}
                 <div className="flex items-center space-x-6">
-                    {user && <>
+                    {userData?.role == 'customer' && <>
                         {/* Wishlist */}
                         <div className="relative cursor-pointer">
                             <AiOutlineHeart size={30} className="text-purple-600 hover:text-purple-500" />
@@ -90,7 +90,10 @@ const Navbar = () => {
                             </span>
                         </div>
 
-                        {/* User Dropdown */}
+
+                    </>}
+                    {/* User Dropdown */}
+                    {user && <>
                         <div className="relative">
                             <FaUserCircle
                                 size={30}
@@ -177,7 +180,7 @@ const Navbar = () => {
                     ))}
                 </div>
                 {/* Mobile device wishlist , cart */}
-                {user && <>
+                {userData?.role == 'customer' && <>
                     {/* Mobile Wishlist and Cart */}
                     <div className="space-y-4 p-6">
                         <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">

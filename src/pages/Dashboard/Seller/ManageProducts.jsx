@@ -69,6 +69,7 @@ const ManageProducts = () => {
             <h1 className="text-3xl font-semibold text-center text-indigo-600 mb-6">
                 Manage Your Products
             </h1>
+            <h1 className="text-center text-2xl my-10">You have <u>{products.length}</u> Products</h1>
 
             <div className="overflow-x-scroll shadow-lg rounded-lg bg-white">
                 <table className="min-w-full mx-auto border-collapse">

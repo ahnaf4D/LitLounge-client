@@ -157,8 +157,8 @@ const AddNewProduct = () => {
                     )}
                 </div>
 
-                {/* Product Category */}
-                <div className="flex flex-col">
+                {/* Product Category (later update) */}
+                {/* <div className="flex flex-col">
                     <label htmlFor="productCategory" className="text-sm font-medium text-gray-700 mb-2">Product Category</label>
                     <select
                         id="productCategory"
@@ -173,8 +173,20 @@ const AddNewProduct = () => {
                     {errors.productCategory && (
                         <span className="text-red-500 text-sm mt-2">{errors.productCategory.message}</span>
                     )}
+                </div> */}
+                <div className="flex flex-col">
+                    <label htmlFor="productCategory" className="text-sm font-medium text-gray-700 mb-2">Product Category</label>
+                    <input
+                        type="text"
+                        id="productCategory"
+                        placeholder="Enter the product category"
+                        className="input input-bordered w-full py-3 px-4 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        {...register("productCategory", { required: "Product category is required" })}
+                    />
+                    {errors.productCategory && (
+                        <span className="text-red-500 text-sm mt-2">{errors.productCategory.message}</span>
+                    )}
                 </div>
-
                 {/* Submit Button */}
                 <div className="flex justify-center">
                     <button
