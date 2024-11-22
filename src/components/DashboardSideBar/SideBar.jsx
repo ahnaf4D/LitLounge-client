@@ -56,8 +56,7 @@ const Sidebar = () => {
             { path: "/dashboard/manage-products", label: "Manage Products", icon: <IoMdSettings /> },
         ],
         admin: [
-            { path: "/dashboard/users", label: "User Management", icon: <FaRegAddressCard /> },
-            { path: "/dashboard/reviews", label: "Feedback & Reviews", icon: <FaRegComments /> },
+            { path: "/dashboard/manage-users", label: "User Management", icon: <FaRegAddressCard /> }
         ],
     };
     // Dynamically get links based on role

@@ -14,6 +14,8 @@ import ManageProducts from "../pages/Dashboard/Seller/ManageProducts";
 import ProductDetails from "../components/Home/ProductDetails";
 import UpdateExistingProduct from "../pages/Dashboard/Seller/UpdateExistingProduct";
 import Products from "../pages/Products/Products";
+import ManageUser from "../pages/Dashboard/Admin/ManageUser";
+import AdminRoutes from "./AdminRoutes";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -43,12 +45,11 @@ const router = createBrowserRouter([
                 path: '/products',
                 element: <Products></Products>
             },
-
             {
                 path: '/product/:id',
                 element: <PrivateRoutes><ProductDetails></ProductDetails></PrivateRoutes>,
                 loader: ({ params }) => fetch(`${import.meta.env.VITE_SERVER_URL}/products/${params.id}`)
-            }
+            },
         ]
     },
     {
@@ -72,6 +73,11 @@ const router = createBrowserRouter([
                 path: 'edit-product/:id',
                 element: <SellerRoutes><UpdateExistingProduct></UpdateExistingProduct></SellerRoutes>,
                 loader: ({ params }) => fetch(`${import.meta.env.VITE_SERVER_URL}/products/${params.id}`)
+            },
+            // routes for admin
+            {
+                path: 'manage-users',
+                element: <AdminRoutes><ManageUser></ManageUser></AdminRoutes>
             }
         ]
     }

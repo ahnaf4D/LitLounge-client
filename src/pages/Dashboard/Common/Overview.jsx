@@ -1,8 +1,10 @@
+import useUsers from "../../../hooks/userUser";
 import useUserData from "../../../hooks/useUserData";
 
 
 const Overview = () => {
     const userData = useUserData();
+    const { data, refetch, isLoading } = useUsers();
     const getOverviewContent = () => {
         switch (userData?.role) {
             case "customer":
@@ -65,12 +67,12 @@ const Overview = () => {
                         <div className="stats shadow">
                             <div className="stat">
                                 <div className="stat-title">Total Users</div>
-                                <div className="stat-value text-primary">1000</div>
+                                <div className="stat-value text-primary">{data?.totalUsers || 0}</div>
                                 <div className="stat-desc">Active and engaged</div>
                             </div>
                             <div className="stat">
                                 <div className="stat-title">Pending Reviews</div>
-                                <div className="stat-value text-secondary">15</div>
+                                <div className="stat-value text-secondary">0</div>
                                 <div className="stat-desc">Needing attention</div>
                             </div>
                         </div>

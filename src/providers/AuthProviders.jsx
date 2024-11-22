@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, onAuthStateChanged, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, signInWithPopup, onAuthStateChanged, GoogleAuthProvider, deleteUser } from "firebase/auth";
 import axios from "axios";
 import app from "../firebase/firebase.config";
 export const AuthContext = createContext(null);
@@ -20,6 +20,13 @@ const AuthProvider = ({ children }) => {
     const googleLogin = () => {
         return signInWithPopup(auth, googleProvider);
     }
+    const deleteAUser = () => {
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+            return Promise.reject(new Error("No user is currently logged in."));
+        }
+        return deleteUser(currentUser);
+    };
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -43,7 +50,7 @@ const AuthProvider = ({ children }) => {
         }
     }, [])
     const authInfo = {
-        createUser, loginUser, logOutUser, googleLogin, user, loading
+        createUser, loginUser, logOutUser, googleLogin, user, loading, deleteAUser
     }
     return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
 };
