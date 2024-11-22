@@ -7,7 +7,8 @@ import About from "../pages/About/About";
 import Contact from "../pages/Contact/Contact";
 import Dashboard from "../layouts/Dashboard";
 import Overview from "../pages/Dashboard/Common/Overview";
-
+import PrivateRoutes from "./PrivateRoutes";
+import AddNewProduct from "../pages/Dashboard/Seller/AddNewProduct";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -37,11 +38,16 @@ const router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
         children: [
             {
                 index: true,
                 element: <Overview></Overview>
+            },
+            // seller routes
+            {
+                path: 'add-new-product',
+                element: <AddNewProduct></AddNewProduct>
             }
         ]
     }

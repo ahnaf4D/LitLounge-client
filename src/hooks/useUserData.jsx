@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import useAuth from './useAuth';
-import axios from 'axios';
 import useAxiosSecure from './useAxiosSecure';
 
 const useUserData = () => {

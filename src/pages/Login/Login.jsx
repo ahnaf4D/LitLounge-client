@@ -24,7 +24,7 @@ const Login = () => {
         const { email, password } = data;
         try {
             await loginUser(email, password);
-            navigate('/');
+            navigate('/dashboard');
             Swal.fire({
                 title: "Good job!",
                 text: "Login Successfully!",
