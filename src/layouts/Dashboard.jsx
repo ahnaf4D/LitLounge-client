@@ -3,8 +3,8 @@ import SideBar from "../components/DashboardSideBar/SideBar";
 
 const Dashboard = () => {
     return (
-        <div className="grid grid-cols-12 gap-2">
-            <div className="col-span-3">
+        <div className="grid grid-rows-1 md:grid-cols-12">
+            <div className="col-span-3 z-50">
                 <SideBar></SideBar>
             </div>
             <div className="col-span-9">
