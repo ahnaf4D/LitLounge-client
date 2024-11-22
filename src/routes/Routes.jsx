@@ -11,6 +11,8 @@ import PrivateRoutes from "./PrivateRoutes";
 import AddNewProduct from "../pages/Dashboard/Seller/AddNewProduct";
 import SellerRoutes from "./SellerRoutes";
 import ManageProducts from "../pages/Dashboard/Seller/ManageProducts";
+import ProductDetails from "../components/Home/ProductDetails";
+import UpdateExistingProduct from "../pages/Dashboard/Seller/UpdateExistingProduct";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -35,6 +37,11 @@ const router = createBrowserRouter([
             {
                 path: '/contact-us',
                 element: <Contact></Contact>
+            },
+            {
+                path: '/product/:id',
+                element: <PrivateRoutes><ProductDetails></ProductDetails></PrivateRoutes>,
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_SERVER_URL}/products/${params.id}`)
             }
         ]
     },
@@ -54,6 +61,11 @@ const router = createBrowserRouter([
             {
                 path: 'manage-products',
                 element: <SellerRoutes><ManageProducts></ManageProducts></SellerRoutes>
+            },
+            {
+                path: 'edit-product/:id',
+                element: <SellerRoutes><UpdateExistingProduct></UpdateExistingProduct></SellerRoutes>,
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_SERVER_URL}/products/${params.id}`)
             }
         ]
     }

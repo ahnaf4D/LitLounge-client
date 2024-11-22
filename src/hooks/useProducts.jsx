@@ -7,19 +7,19 @@ const useProducts = () => {
         queryKey: ['products'],
         queryFn: async () => {
             const response = await axiosPublic.get(`/products`);
-            return response.data;
+            return response.data; // This directly contains the array of products
         },
         keepPreviousData: true,
         staleTime: 1000 * 60 * 5, // Cache for 5 minutes
     });
 
-    const products = data?.products || []; // Make sure products exist
+    // Assuming response.data is directly an array of products
+    const products = data || []; // Ensure it's an array, fallback to an empty array if not defined
 
     return {
         products,
-        isLoading,
-        isError,
-        error,
+        loading: isLoading,
+        error: isError ? error : null,
         refetch, // For manual refetching
     };
 };

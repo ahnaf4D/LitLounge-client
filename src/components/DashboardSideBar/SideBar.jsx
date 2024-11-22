@@ -60,17 +60,6 @@ const Sidebar = () => {
             { path: "/dashboard/reviews", label: "Feedback & Reviews", icon: <FaRegComments /> },
         ],
     };
-    console.log(userData);
-    // userData Return 
-    // {
-    //     "_id": "673f770baf92c9cd552f9c5d",
-    //     "fullName": "Tanvir Hossain",
-    //     "email": "customer@litlounge.com",
-    //     "role": "customer",
-    //     "status": "approved",
-    //     "wishlist": [],
-    //     "cart": []
-    // }
     // Dynamically get links based on role
     const getRoleBasedLinks = () => {
         switch (userData?.role) {
