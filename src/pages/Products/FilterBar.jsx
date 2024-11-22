@@ -8,27 +8,34 @@ const FilterBar = ({ setBrand, setCategory, handleReset, uniqueCategory, uniqueB
                 <FaFilter size={24} />
                 <h2 className="text-xl font-semibold">Filters</h2>
             </div>
-            <div className="flex flex-col gap-2 items-center my-4">
-                <div>
-                    <select onChange={(e) => setBrand(e.target.value)} className="select select-bordered w-full select-lg max-w-xs">
-                        <option value="">Brands</option>
-                        {uniqueBrand.map((val) => (
-                            <option key={val} value={val}>{val}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <select className="select select-bordered w-full select-lg max-w-xs" onChange={(e) => setCategory(e.target.value)}>
-                        <option value="">Categories</option>
-                        {uniqueCategory.map((val, index) => (
-                            <option key={index} value={val}>{val}</option>
-                        ))}
-                    </select>
-                </div>
+            <div className="flex flex-col gap-4 my-4">
+                <select
+                    onChange={(e) => setBrand(e.target.value)}
+                    className="select select-bordered w-full"
+                >
+                    <option value="">All Brands</option>
+                    {uniqueBrand.map((val) => (
+                        <option key={val} value={val}>
+                            {val}
+                        </option>
+                    ))}
+                </select>
+                <select
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="select select-bordered w-full"
+                >
+                    <option value="">All Categories</option>
+                    {uniqueCategory.map((val) => (
+                        <option key={val} value={val}>
+                            {val}
+                        </option>
+                    ))}
+                </select>
             </div>
-            <div className="flex justify-center items-center">
-                <button className="btn btn-error text-xl " onClick={handleReset}><GrPowerReset />Reset</button>
-            </div>
+            <button className="btn btn-error w-full" onClick={handleReset}>
+                <GrPowerReset className="mr-2" />
+                Reset
+            </button>
         </div>
     );
 };

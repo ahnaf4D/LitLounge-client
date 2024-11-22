@@ -1,13 +1,19 @@
 import { FaSearch } from "react-icons/fa";
-const SearchBar = ({ handleSearch }) => {
 
+const SearchBar = ({ handleSearch }) => {
     return (
-        <div>
-            <form onSubmit={handleSearch}>
-                <input type="search" placeholder="Search products..." name="search" className="max-w-md input input-bordered mr-2" />
-                <button className="btn btn-neutral text-white "><FaSearch />Search</button>
-            </form>
-        </div>
+        <form onSubmit={handleSearch} className="flex items-center">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search products..."
+                className="input input-bordered w-full max-w-sm"
+            />
+            <button className="btn btn-neutral ml-2 flex items-center">
+                <FaSearch className="mr-1" />
+                Search
+            </button>
+        </form>
     );
 };
 
