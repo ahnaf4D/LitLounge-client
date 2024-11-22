@@ -53,7 +53,6 @@ const Sidebar = () => {
         ],
         seller: [
             { path: "/dashboard/add-new-product", label: "Add New Product", icon: <IoMdAdd /> },
-            { path: "/dashboard/my-products", label: "My Products", icon: <FaStore /> },
             { path: "/dashboard/manage-products", label: "Manage Products", icon: <IoMdSettings /> },
         ],
         admin: [

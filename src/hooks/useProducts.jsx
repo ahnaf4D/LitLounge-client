@@ -10,16 +10,17 @@ const useProducts = () => {
             return response.data;
         },
         keepPreviousData: true,
-        staleTime: 1000 * 60 * 5,
-    })
-    const products = data?.products || [];
+        staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    });
+
+    const products = data?.products || []; // Make sure products exist
 
     return {
         products,
         isLoading,
         isError,
         error,
-        refetch, // To manually refetch if needed
+        refetch, // For manual refetching
     };
 };
 

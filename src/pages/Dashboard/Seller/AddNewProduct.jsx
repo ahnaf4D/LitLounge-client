@@ -6,6 +6,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useUserData from "../../../hooks/useUserData";
 
 const AddNewProduct = () => {
+
     const {
         register,
         handleSubmit,
@@ -46,7 +47,6 @@ const AddNewProduct = () => {
             });
         }
     };
-
     return (
         <div className="max-w-4xl my-4 mx-auto bg-white p-12 rounded-xl shadow-lg space-y-6">
             <h1 className="text-3xl font-semibold text-center text-indigo-600">Add New Product</h1>
