@@ -19,6 +19,7 @@ import AdminRoutes from "./AdminRoutes";
 import CustomerRoutes from "./CustomerRoutes";
 import Cart from "../pages/Dashboard/Customer/Cart";
 import Wishlist from "../pages/Dashboard/Customer/Wishlist";
+import PurchaseHistory from "../pages/Dashboard/Customer/PurchaseHistory";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -90,6 +91,10 @@ const router = createBrowserRouter([
             {
                 path: 'wishlist',
                 element: <CustomerRoutes><Wishlist></Wishlist></CustomerRoutes>
+            },
+            {
+                path: 'purchase-history',
+                element: <CustomerRoutes><PurchaseHistory></PurchaseHistory></CustomerRoutes>
             }
         ]
     }

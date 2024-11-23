@@ -4,17 +4,17 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading";
 import useAuth from "../../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
     const [cart, refetch, isLoading] = useCart();
+    const navigate = useNavigate();
     const cartData = cart?.cart || []; // Ensure cartData is populated
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
-    // // Ensure to return a loading component if data is still being fetched
-
     // Initialize cartItems state only once when cartData changes
     const [cartItems, setCartItems] = useState([]);
-
+    // console.log(cartData);
     // UseEffect to update cartItems when cartData changes
     useEffect(() => {
         if (cartData?.length > 0) {
@@ -90,6 +90,49 @@ const Cart = () => {
         return <Loading />;
     }
 
+    const handlePayment = async () => {
+        const amountToPay = (calculateTotal() + 35).toFixed(2); // Calculate total with fees
+        const email = user?.email;
+        const productIds = cartData.map(product => product._id);
+        if (!email) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Authentication Required',
+                text: 'Please log in to proceed with the payment.',
+            });
+            return;
+        }
+
+        try {
+            const response = await axiosSecure.post(`/create-payment?email=${user?.email}`, {
+                productIds,
+                payableAmount: amountToPay
+            })
+
+            const { transactionId, paymentTime, payableAmount } = response.data.data;
+            // Show success message
+            Swal.fire({
+                icon: 'success',
+                title: 'Payment Successful!',
+                html: `
+                    <strong>Transaction ID:</strong> ${transactionId}<br>
+                    <strong>Payment Time:</strong> ${paymentTime}<br>
+                    <strong>Amount Paid:</strong> $${payableAmount}
+                `,
+                confirmButtonText: 'OK',
+            });
+
+            refetch();
+            navigate(`/dashboard/purchase-history`)
+        } catch (error) {
+            console.error("Payment error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Payment Failed',
+                text: error.response?.data?.message || 'An error occurred while processing the payment. Please try again.',
+            });
+        }
+    };
     return (
         <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
             <h2 className="text-4xl font-bold mb-6 text-center text-primary">
@@ -204,7 +247,7 @@ const Cart = () => {
                                 ${(calculateTotal() + 35).toFixed(2)}
                             </span>
                         </div>
-                        <button className="btn btn-primary w-full mt-4">
+                        <button className="btn btn-primary w-full mt-4" onClick={handlePayment}>
                             Proceed to Checkout
                         </button>
                     </div>
