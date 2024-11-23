@@ -52,18 +52,21 @@ const Cart = () => {
         );
     };
 
-    // Remove an item from the cart
     const handleRemove = async (id) => {
         try {
             const res = await axiosSecure.delete(`/cart-items/${id}?email=${user?.email}`);
-
             if (res.status === 200) {
+                // Update local state first
+                setCartItems((prevItems) => prevItems.filter((item) => item._id !== id));
+
+                // Refetch the data to ensure synchronization with the backend
+                refetch();
+
                 Swal.fire({
                     title: "Good job!",
                     text: "Product successfully deleted from cart!",
                     icon: "success",
                 });
-                refetch();
             } else {
                 throw new Error("Failed to delete product");
             }
