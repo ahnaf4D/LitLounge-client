@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { useForm } from 'react-hook-form';
@@ -7,6 +7,7 @@ import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 
 const Login = () => {
+    const location = useLocation();
     const { loginUser } = useAuth();
     const {
         register,
@@ -24,20 +25,21 @@ const Login = () => {
         const { email, password } = data;
         try {
             await loginUser(email, password);
-            navigate('/dashboard');
+            const redirectPath = location.state?.from?.pathname || '/dashboard';
+            navigate(redirectPath, { replace: true });
             Swal.fire({
                 title: "Good job!",
                 text: "Login Successfully!",
                 icon: "success"
             });
-        }
-        catch (error) {
+        } catch (error) {
             Swal.fire({
                 text: error.message,
                 icon: "error"
             });
         }
     };
+
 
     return (
         <div className="font-inter my-8  min-h-screen flex items-center justify-center px-4">
