@@ -1,14 +1,15 @@
 const Sorting = ({ setSort }) => {
     return (
-        <div className="flex justify-center items-center">
-            <div className="dropdown mx-4">
-                <select className="select select-success w-full max-w-xs" onChange={(e) => setSort(e.target.value)}>
-                    <option selected value="">Sort</option>
-                    <option value="asc">Low to High</option>
-                    <option value="dsc">High to Low</option>
-                </select>
-            </div>
-        </div>
+        <select
+            onChange={(e) => setSort(e.target.value)}
+            className="select select-bordered max-w-xs"
+        >
+            <option value="" selected>
+                Sort by
+            </option>
+            <option value="asc">Price: Low to High</option>
+            <option value="dsc">Price: High to Low</option>
+        </select>
     );
 };
 
