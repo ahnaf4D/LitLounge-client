@@ -4,9 +4,7 @@ const Sorting = ({ setSort }) => {
             onChange={(e) => setSort(e.target.value)}
             className="select select-bordered max-w-xs"
         >
-            <option value="" selected>
-                Sort by
-            </option>
+            <option value="">Sort by</option>
             <option value="asc">Price: Low to High</option>
             <option value="dsc">Price: High to Low</option>
         </select>

@@ -3,8 +3,8 @@ import { GrPowerReset } from "react-icons/gr";
 
 const FilterBar = ({ setBrand, setCategory, handleReset, uniqueBrand, uniqueCategory }) => {
     return (
-        <div className="space-y-4">
-            <div className="flex items-center gap-2">
+        <div className="space-y-6">
+            <div className="flex items-center gap-2 text-primary">
                 <FaFilter size={20} />
                 <h2 className="text-xl font-semibold">Filters</h2>
             </div>
@@ -30,7 +30,10 @@ const FilterBar = ({ setBrand, setCategory, handleReset, uniqueBrand, uniqueCate
                     </option>
                 ))}
             </select>
-            <button className="btn btn-error w-full flex items-center gap-2" onClick={handleReset}>
+            <button
+                className="btn btn-error btn-block flex items-center gap-2"
+                onClick={handleReset}
+            >
                 <GrPowerReset />
                 Reset
             </button>
