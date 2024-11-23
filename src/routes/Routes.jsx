@@ -16,6 +16,9 @@ import UpdateExistingProduct from "../pages/Dashboard/Seller/UpdateExistingProdu
 import Products from "../pages/Products/Products";
 import ManageUser from "../pages/Dashboard/Admin/ManageUser";
 import AdminRoutes from "./AdminRoutes";
+import CustomerRoutes from "./CustomerRoutes";
+import Cart from "../pages/Dashboard/Customer/Cart";
+import Wishlist from "../pages/Dashboard/Customer/Wishlist";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -78,6 +81,15 @@ const router = createBrowserRouter([
             {
                 path: 'manage-users',
                 element: <AdminRoutes><ManageUser></ManageUser></AdminRoutes>
+            },
+            // customer routes
+            {
+                path: 'cart',
+                element: <CustomerRoutes><Cart></Cart></CustomerRoutes>
+            },
+            {
+                path: 'wishlist',
+                element: <CustomerRoutes><Wishlist></Wishlist></CustomerRoutes>
             }
         ]
     }

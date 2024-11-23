@@ -76,18 +76,22 @@ const Navbar = () => {
                     {userData?.role == 'customer' && <>
                         {/* Wishlist */}
                         <div className="relative cursor-pointer">
-                            <AiOutlineHeart size={30} className="text-purple-600 hover:text-purple-500" />
-                            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                {userData?.wishlist?.length || 0}
-                            </span>
+                            <Link to={`/dashboard/wishlist`}>
+                                <AiOutlineHeart size={30} className="text-purple-600 hover:text-purple-500" />
+                                <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                    {userData?.wishlist?.length || 0}
+                                </span>
+                            </Link>
                         </div>
 
                         {/* Cart */}
                         <div className="relative cursor-pointer">
-                            <AiOutlineShoppingCart size={30} className="text-purple-600 hover:text-purple-500" />
-                            <span className="absolute top-0 right-0 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                {userData?.cart?.length || 0}
-                            </span>
+                            <Link to={`/dashboard/cart`}>
+                                <AiOutlineShoppingCart size={30} className="text-purple-600 hover:text-purple-500" />
+                                <span className="absolute top-0 right-0 bg-green-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                                    {userData?.cart?.length || 0}
+                                </span>
+                            </Link>
                         </div>
 
 
@@ -152,7 +156,7 @@ const Navbar = () => {
                             {dropdownOpen && (
                                 <ul className="absolute left-0 mt-2 w-40 bg-white text-indigo-900 shadow-lg rounded-lg">
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
-                                        <NavLink to="/dashboard">Profile</NavLink>
+                                        <NavLink to="/dashboard">Dashboard</NavLink>
                                     </li>
                                     <li className="p-3 hover:bg-purple-100 cursor-pointer">
                                         <button onClick={handleLogout} className="btn btn-primary">
@@ -183,14 +187,21 @@ const Navbar = () => {
                 {userData?.role == 'customer' && <>
                     {/* Mobile Wishlist and Cart */}
                     <div className="space-y-4 p-6">
-                        <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
-                            <AiOutlineHeart size={24} className="text-white" />
-                            <span>Wishlist ({userData?.wishlist?.length || 0})</span>
-                        </div>
-                        <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
-                            <AiOutlineShoppingCart size={24} className="text-white" />
-                            <span>Cart ({userData?.cart?.length || 0})</span>
-                        </div>
+                        <Link to={`/dashboard/wishlist`}>
+                            <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
+                                <AiOutlineHeart size={24} className="text-white" />
+
+                                <span>Wishlist ({userData?.wishlist?.length || 0})</span>
+                            </div>
+                        </Link>
+                        <br />
+                        <Link to={`/dashboard/cart`}>
+                            <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
+                                <AiOutlineShoppingCart size={24} className="text-white" />
+
+                                <span>Cart ({userData?.cart?.length || 0})</span>
+                            </div>
+                        </Link>
                     </div>
                 </>}
                 {!user && <div className="mx-auto flex justify-center">
