@@ -1,106 +1,163 @@
-# LitLounge Book Store
+# LitLounge - E-commerce Store
 
-LitLounge is a comprehensive online bookstore designed for book enthusiasts, offering a seamless experience for customers to browse and purchase books, sellers to manage their inventory, and admins to oversee the platform's operations effectively.
+**Live Link:** [LitLounge](https://lit-lounge-store.vercel.app)  
+**Frontend Repository:** [LitLounge Client](https://github.com/ahnaf4D/LitLounge-client)  
+**Backend Repository:** [LitLounge Server](https://github.com/ahnaf4D/LitLounge-server)  
 
----
-
-## 🚀 Features
-
-### 🔹 Customer Features:
-- Explore a wide variety of books.
-- Add books to a personalized cart and wishlist.
-- Place orders and track order history in real-time.
-- Manage personal account details and profile settings.
-
-### 🔹 Seller Features:
-- Add, update, and delete books in their inventory.
-- Manage and process orders received for their listed books.
-- Access tools to monitor sales performance and analytics.
-
-### 🔹 Admin Features:
-- Comprehensive user management (buyers, sellers, and roles).
-- Oversee and manage all book listings and categories.
-- View and handle platform-wide orders and operations.
-- Access detailed reports and insights for performance monitoring.
+LitLounge is an online product-selling platform developed using the MERN stack. It includes features like user authentication, role-based dashboards, product management, and a fully responsive design.
 
 ---
 
-## 🛠️ How to Run the Application Locally
+## Features
+
+### General Features
+- **User Authentication:**  
+  - Firebase authentication for email/password and Google login.
+  - Password validation ensures strong and secure passwords.
+- **JWT-based Authorization:**  
+  - Protects private API routes and ensures secure access based on user roles.
+- **Responsive Design:**  
+  - Optimized for mobile, tablet, and desktop screens.
+
+### User Roles and Permissions
+1. **Buyer**  
+   - Browse and purchase products.  
+   - Add products to wishlist and cart.  
+   - Cannot access seller or admin features.
+
+2. **Seller**  
+   - Manage products via their dashboard.  
+   - Add, edit, or delete their own products.  
+
+3. **Admin**  
+   - Manage all users and roles via the admin dashboard.  
+   - Promote buyers to sellers or delete users.  
+   - Cannot self-register; must be added by another admin.
+
+---
+
+## Pages and Functionality
+
+1. **Home Page**  
+   - A beautifully designed page with six sections:  
+     - Hero section  
+     - Featured products  
+     - Testimonials  
+     - Categories  
+     - FAQs  
+     - Contact info  
+
+2. **Products Page**  
+   - Displays all products with filtering, sorting, and search options:  
+     - Search by name  
+     - Sort by price (ascending/descending)  
+     - Filter by category and brand  
+
+3. **Product Details Page**  
+   - Detailed information for each product.
+
+4. **About Page**  
+   - Describes the application and its purpose.
+
+5. **Contact Page**  
+   - Includes a contact form with fields for name, email, and message.
+
+### Buyer Features
+- Add products to a wishlist or cart.  
+- Complete purchases.  
+
+### Seller Features
+- A dedicated dashboard to:  
+  - Add new products.  
+  - Edit or delete their listed products.  
+
+### Admin Features
+- View all registered users.  
+- Change user roles (e.g., promote a buyer to a seller).  
+- Delete users.  
+
+---
+
+## Technology Stack
+
+### Front-End
+- React.js  
+- TailwindCSS for styling  
+- Swiper.js for interactive sliders  
+
+### Back-End
+- Node.js with Express.js  
+- MongoDB as the database  
+- Firebase for authentication  
+- JWT for secure route protection  
+
+---
+
+## Installation and Setup
 
 ### Prerequisites
-Ensure the following are installed:
-1. **[Node.js](https://nodejs.org/):** Version 14+ recommended.
-2. **[Git](https://git-scm.com/):** For version control.
-3. **Package Manager:** [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/).
+Ensure you have the following installed:
+- Node.js  
+- MongoDB  
+- Git  
 
-### Steps to Set Up
-1. Clone the repository:
+### Steps to Run Locally
+
+1. **Clone the Repositories:**  
    ```bash
-   git clone https://github.com/yourusername/litlounge-bookstore.git
-   cd litlounge-bookstore
+   git clone https://github.com/ahnaf4D/LitLounge-client.git
+   git clone https://github.com/ahnaf4D/LitLounge-server.git
    ```
 
-2. Install dependencies:
+2. **Install Dependencies:**  
+   Navigate to each directory and run:  
    ```bash
    npm install
    ```
 
-3. Configure environment variables:
-   Create a `.env` file in the root directory with the following variables:
-   ```
-   PORT=5000
-   MONGO_URI=<Your MongoDB Connection String>
-   JWT_SECRET=<Your JWT Secret Key>
-   ```
+3. **Set Environment Variables:**  
+   Create a `.env` file in both the client and server directories with the required configuration:  
+   - **Client:**  
+     - `VITE_SERVER_URL`  
+   - **Server:**  
+     - `MONGO_URI`  
+     - `JWT_SECRET`  
+     - `FIREBASE_API_KEY`  
+     - `FIREBASE_AUTH_DOMAIN`  
+     - `FIREBASE_PROJECT_ID`  
+     - `FIREBASE_STORAGE_BUCKET`  
+     - `FIREBASE_MESSAGING_SENDER_ID`  
+     - `FIREBASE_APP_ID`  
 
-4. Run the development server:
+4. **Run the Server:**  
    ```bash
    npm start
    ```
 
-5. Access the application:
-   Open your browser and navigate to [http://localhost:5000](http://localhost:5000).
+5. **Run the Client:**  
+   ```bash
+   npm run dev
+   ```
+
+6. **Access the Application:**  
+   Open your browser and go to `http://localhost:3001`.
 
 ---
 
-## 🔑 User Credentials
+## Credentials for Testing
 
-### Admin
-- **Email**: `admin@litlounge.com`
-- **Password**: `Admin@1234`
+### Buyer Account  
+**Email:** customer@litlounge.com  
+**Password:** Customer@9876  
 
-### Seller
-- **Email**: `seller@litlounge.com`
-- **Password**: `Seller@5678`
+### Seller Account  
+**Email:** seller@litlounge.com  
+**Password:** Seller@5678  
 
-### Customer
-- **Email**: `customer@litlounge.com`
-- **Password**: `Customer@9876`
+### Admin Account  
+**Email:** admin@litlounge.com  
+**Password:** Admin@1234  
 
----
-
-## 🌐 Live Application
-
-The live application is accessible online at:  
-**[LitLounge Book Store - Live Demo](https://your-live-link.vercel.app)**
-
----
-
-## 🛠️ Technologies Used
-
-### Frontend:
-- **React.js** for building the user interface.
-- **Tailwind CSS** for responsive and modern styling.
-
-### Backend:
-- **Node.js** and **Express.js** for the server-side application.
-- **MongoDB** as the primary database.
-
-### Additional Tools:
-- **JWT (JSON Web Tokens):** For secure user authentication.
-- **Hosting Platforms:** Deployed on **Vercel** or **Netlify**.
-
-
-### 👥 Connect With Us
-For inquiries or support, please reach out to us at:  
-📧 **support@litlounge.com**
+### Author
+**Ahnaf Tahmid**  
+Competitive Programmer & Web Developer  
