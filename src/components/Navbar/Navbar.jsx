@@ -7,11 +7,13 @@ import useAuth from "../../hooks/useAuth";
 import useUserData from "../../hooks/useUserData";
 import Swal from "sweetalert2";
 import useCart from "../../hooks/useCart";
+import useWishlist from "../../hooks/useWishlist";
 
 const Navbar = () => {
     const navigate = useNavigate();
     const [nav, setNav] = useState(false);
-    const [cart, isLoading] = useCart();
+    const [cart] = useCart();
+    const [wishlist] = useWishlist();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const { user, logOutUser } = useAuth();
     const userData = useUserData();
@@ -80,7 +82,7 @@ const Navbar = () => {
                             <Link to={`/dashboard/wishlist`}>
                                 <AiOutlineHeart size={30} className="text-purple-600 hover:text-purple-500" />
                                 <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                                    {userData?.wishlist?.length || 0}
+                                    {wishlist?.wishlist?.length || 0}
                                 </span>
                             </Link>
                         </div>
@@ -192,7 +194,7 @@ const Navbar = () => {
                             <div className="flex justify-between items-center bg-purple-500 p-4 rounded-lg hover:bg-purple-600 cursor-pointer">
                                 <AiOutlineHeart size={24} className="text-white" />
 
-                                <span>Wishlist ({userData?.wishlist?.length || 0})</span>
+                                <span>Wishlist ({wishlist?.wishlist?.length || 0})</span>
                             </div>
                         </Link>
                         <br />

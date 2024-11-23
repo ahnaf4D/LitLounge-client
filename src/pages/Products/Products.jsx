@@ -9,6 +9,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useUserData from "../../hooks/useUserData";
 import Swal from "sweetalert2";
 import useCart from "../../hooks/useCart";
+import useWishlist from "../../hooks/useWishlist";
 
 const Products = () => {
     const axiosSecure = useAxiosPublic();
@@ -24,6 +25,8 @@ const Products = () => {
     const [totalPage, setTotalPage] = useState(1);
     const userData = useUserData();
     const [, refetch] = useCart();
+    const [, reloadData] = useWishlist();
+
     const fetchProducts = async () => {
         setLoading(true);
         try {
@@ -87,7 +90,7 @@ const Products = () => {
 
         try {
             const response = await axiosSecure.patch(`/wishlist?id=${productId}&email=${userData?.email}`);
-
+            reloadData();
             // Check for success response from the server
             if (response.status === 200) {
                 Swal.fire({
@@ -149,7 +152,7 @@ const Products = () => {
         try {
             const response = await axiosSecure.patch(`/cart?id=${productId}&email=${userData?.email}`);
             refetch();
-
+            reloadData();
             // Check for success response from the server
             if (response.status === 200) {
                 Swal.fire({
