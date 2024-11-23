@@ -3,12 +3,13 @@ import useCart from "../../../hooks/useCart";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import Loading from "../../../components/Loading";
+import useAuth from "../../../hooks/useAuth";
 
 const Cart = () => {
     const [cart, refetch, isLoading] = useCart();
     const cartData = cart?.cart || []; // Ensure cartData is populated
     const axiosSecure = useAxiosSecure();
-
+    const { user } = useAuth();
     // // Ensure to return a loading component if data is still being fetched
 
     // Initialize cartItems state only once when cartData changes
@@ -25,11 +26,6 @@ const Cart = () => {
             );
         }
     }, [cartData]); // Only trigger when cartData changes
-
-    // Log cartData to ensure it's populated
-    useEffect(() => {
-        console.log(cartData);
-    }, [cartData]);
 
     // Increase quantity
     const handleIncrease = (id) => {
@@ -59,16 +55,17 @@ const Cart = () => {
     // Remove an item from the cart
     const handleRemove = async (id) => {
         try {
-            const res = await axiosSecure.delete(`/cart-items/${id}`);
-            refetch();
+            const res = await axiosSecure.delete(`/cart-items/${id}?email=${user?.email}`);
+
             if (res.status === 200) {
                 Swal.fire({
                     title: "Good job!",
                     text: "Product successfully deleted from cart!",
                     icon: "success",
                 });
+                refetch();
             } else {
-                throw new Error('Failed to delete product');
+                throw new Error("Failed to delete product");
             }
         } catch (error) {
             Swal.fire({
@@ -78,6 +75,7 @@ const Cart = () => {
             });
         }
     };
+
 
     // Calculate the total price
     const calculateTotal = () =>
