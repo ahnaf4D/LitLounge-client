@@ -8,6 +8,7 @@ import { FaAnglesLeft, FaAnglesRight } from "react-icons/fa6";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useUserData from "../../hooks/useUserData";
 import Swal from "sweetalert2";
+import useCart from "../../hooks/useCart";
 
 const Products = () => {
     const axiosSecure = useAxiosPublic();
@@ -22,6 +23,7 @@ const Products = () => {
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const userData = useUserData();
+    const [, refetch] = useCart();
     const fetchProducts = async () => {
         setLoading(true);
         try {
@@ -70,9 +72,68 @@ const Products = () => {
             setPage(newPage);
         }
     };
-    const handleAddToWishlist = (productId) => {
-        console.log(`${productId} added to the wishlist`);
+    const handleAddToWishlist = async (productId) => {
+        if (userData?.role !== 'customer') {
+            Swal.fire({
+                title: "Restricted",
+                text: `The 'Add to Wishlist' feature is restricted for ${userData?.role}s.`,
+                icon: 'info',
+                confirmButtonText: 'OK',
+                showConfirmButton: true,
+                timer: 5000, // Auto-close after 5 seconds
+            });
+            return;
+        }
+
+        try {
+            const response = await axiosSecure.patch(`/wishlist?id=${productId}&email=${userData?.email}`);
+
+            // Check for success response from the server
+            if (response.status === 200) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Product successfully added to your wishlist.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    timer: 3000, // Auto-close after 3 seconds
+                });
+            } else {
+                // Server responded with an error
+                Swal.fire({
+                    title: 'Error',
+                    text: response.data.message || 'Something went wrong while adding the product to your wishlist.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    timer: 3000, // Auto-close after 3 seconds
+                });
+            }
+        } catch (error) {
+            // Error handling with specific error message
+            console.error('Error adding product to wishlist:', error);
+
+            // Check if there's a response from the server
+            if (error?.response) {
+                // Backend validation errors or other server-related issues
+                Swal.fire({
+                    title: 'Error',
+                    text: error?.response?.data?.message || 'Failed to add product to wishlist. Please try again later.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    timer: 3000, // Auto-close after 3 seconds
+                });
+            } else {
+                // Network or other errors (e.g., timeout, no response)
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Network error or no response from the server. Please check your internet connection.',
+                    icon: 'error',
+                    confirmButtonText: 'OK',
+                    timer: 3000, // Auto-close after 3 seconds
+                });
+            }
+        }
     }
+
     const handleAddToCart = async (productId) => {
         if (userData?.role !== 'customer') {
             Swal.fire({
@@ -85,9 +146,9 @@ const Products = () => {
             });
             return;
         }
-
         try {
             const response = await axiosSecure.patch(`/cart?id=${productId}&email=${userData?.email}`);
+            refetch();
 
             // Check for success response from the server
             if (response.status === 200) {
@@ -153,7 +214,7 @@ const Products = () => {
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {products.map((product) => (
-                                <ProductCard key={product._id} handleAddToCart={handleAddToCart} product={product} />
+                                <ProductCard key={product._id} handleAddToCart={handleAddToCart} handleAddToWishlist={handleAddToWishlist} product={product} />
                             ))}
                         </div>
                     )}

@@ -1,7 +1,7 @@
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
 import { FaEye } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-const ProductCard = ({ product, handleAddToCart }) => {
+const ProductCard = ({ product, handleAddToCart, handleAddToWishlist }) => {
     return (
         <div className="card bg-white shadow-xl rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer">
             <figure>
@@ -24,7 +24,7 @@ const ProductCard = ({ product, handleAddToCart }) => {
                         <FaShoppingCart />
                         Add to Cart
                     </button>
-                    <button className="btn btn-outline btn-secondary flex items-center gap-2" >
+                    <button className="btn btn-outline btn-secondary flex items-center gap-2" onClick={() => handleAddToWishlist(product._id)}>
                         <FaHeart />
                         Wishlist
                     </button>
